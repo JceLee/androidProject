@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">newWestminsterNavigator</string>
+    <string name="app_name">New Westminster Navigator</string>
     <string name="start_button">Start</string>
     <string name="setting_button">Settings</string>
     <string name="exit_button">Exit</string>
