@@ -1,5 +1,6 @@
 package com.example.newwestminsternavigator;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.location.Location;
@@ -91,7 +92,7 @@ public class LocationService extends Service implements
 
     @Override
     public void onLocationChanged(Location location) {
-        SpeedActivity.locate.dismiss();
+        MapsActivity.locate.dismiss();
         mCurrentLocation = location;
         if (lStart == null) {
             lStart = mCurrentLocation;
@@ -121,19 +122,15 @@ public class LocationService extends Service implements
     }
 
     //The live feed of Distance and Speed are being set in the method below .
+    @SuppressLint("SetTextI18n")
     private void updateUI() {
-        if (SpeedActivity.p == 0) {
+        if (MapsActivity.p == 0) {
             distance = distance + (lStart.distanceTo(lEnd) / 1000.00);
-            SpeedActivity.endTime = System.currentTimeMillis();
-            long diff = SpeedActivity.endTime - SpeedActivity.startTime;
-            diff = TimeUnit.MILLISECONDS.toMinutes(diff);
-            SpeedActivity.time.setText("Total Time: " + diff + " minutes");
-            if (speed > 0.0)
-                SpeedActivity.speed.setText("Current speed: " + new DecimalFormat("#.##").format(speed) + " km/hr");
+            MapsActivity.endTime = System.currentTimeMillis();
+            if (speed >= 0.0)
+                MapsActivity.speed.setText("Current speed: " + new DecimalFormat("#.##").format(speed) + " km/hr");
             else
-                SpeedActivity.speed.setText(".......");
-
-            SpeedActivity.dist.setText(new DecimalFormat("#.###").format(distance) + " Km's.");
+                MapsActivity.speed.setText(".......");
 
             lStart = lEnd;
 

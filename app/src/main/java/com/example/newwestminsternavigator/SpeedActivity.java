@@ -1,6 +1,5 @@
 package com.example.newwestminsternavigator;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
