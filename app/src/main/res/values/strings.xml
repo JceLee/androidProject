@@ -4,6 +4,7 @@
     <string name="setting_button">Settings</string>
     <string name="exit_button">Exit</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title">New West Navigation</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
