@@ -92,7 +92,7 @@ public class SpeedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_speed);
 
 
         dist = (TextView) findViewById(R.id.distancetext);
