@@ -21,6 +21,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -263,4 +265,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
+
+
+}
+
+class JsonLoader {
+
+    public static String loadJSONFromAsset(Context context) {
+        String json = null;
+        try {
+            InputStream is = context.getAssets().open("speedsigns.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
 }
