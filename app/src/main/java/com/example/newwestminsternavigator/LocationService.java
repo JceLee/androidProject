@@ -107,7 +107,7 @@ public class LocationService extends Service implements
         updateUI();
         //calculating the speed with getSpeed method it returns speed in m/s so we are converting it into kmph
 //        speed = location.getSpeed() * 18 / 5;
-        speed = location.getSpeed() * 90 / 5;
+        speed = location.getSpeed() * 180 / 5;
     }
 
     @Override
