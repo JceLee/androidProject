@@ -1,31 +1,33 @@
 package com.example.newwestminsternavigator;
 
+import java.util.Dictionary;
+
 public class speedSign {
-    int speedLimit;
-    int x;
-    int y;
+    String type;
+    String geometry;
+    String properties;
 
-    public int getSpeedLimit() {
-        return speedLimit;
+    public String getType() {
+        return type;
     }
 
-    public int getX() {
-        return x;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public int getY() {
-        return y;
+    public String getGeometry() {
+        return geometry;
     }
 
-    public void setSpeedLimit(int speedLimit) {
-        this.speedLimit = speedLimit;
+    public void setGeometry(String geometry) {
+        this.geometry = geometry;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public String getProperties() {
+        return properties;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setProperties(String properties) {
+        this.properties = properties;
     }
 }

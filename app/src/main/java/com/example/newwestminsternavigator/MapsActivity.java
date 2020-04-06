@@ -63,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageView image;
     static ProgressDialog locate;
     static int p = 0;
-    static List<speedSign> speedSigns;
+    static ArrayList<LatLng> speedSigns = new ArrayList<LatLng>();
 
 
     @Override
@@ -105,16 +105,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locate.setMessage("Getting Location...");
         locate.show();
 
-        String jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "bezkoder.json");
+        String jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "speedsigns.json");
         Log.i("data", jsonFileString);
 
         Gson gson = new Gson();
         Type listUserType = new TypeToken<List<speedSign>>() { }.getType();
 
-        speedSigns = gson.fromJson(jsonFileString, listUserType);
-//        for (int i = 0; i < speedSigns.size(); i++) {
-//            Log.i("data", "> Item " + i + "\n" + speedSigns.get(i));
+//        List<speedSign> speedJson = gson.fromJson(jsonFileString, listUserType);
+//        for (int i = 0; i < speedJson.size(); i++) {
+//            Log.i("data", "> Item " + i + "\n" + speedJson.get(i));
 //        }
+
+        LatLng sampleLocation1 = new LatLng(49.2018, -122.9105 );
+        LatLng sampleLocation2 = new LatLng(49.2014, -122.9096);
+        LatLng sampleLocation3 = new LatLng(49.2035, -122.9099);
+        LatLng sampleLocation4 = new LatLng(49.2006, -122.9124);
+        LatLng sampleLocation5 = new LatLng(49.2025,  -122.9131);
+        speedSigns.add(sampleLocation1);
+        speedSigns.add(sampleLocation2);
+        speedSigns.add(sampleLocation3);
+        speedSigns.add(sampleLocation4);
+        speedSigns.add(sampleLocation5);
     }
 
 
@@ -132,6 +143,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         Intent intent = getIntent();
+        for (int i=0; i<speedSigns.size();i++) {
+            mMap.addMarker(new MarkerOptions().position(speedSigns.get(i)).title("Marker"));
+        }
         if (intent.getIntExtra("Place Number",0) == 0 ) {
             // Zoom into users location
             locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);

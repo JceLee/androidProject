@@ -1,7 +1,4 @@
-{
-	"type" : "FeatureCollection",
-	"name" : "SPEED_SIGNS_AND_TABS",
-	"features" : [
+[
 		{
 			"type" : "Feature",
 			"geometry" : {
@@ -6496,4 +6493,3 @@
 			}
 		}
 	]
-}
