@@ -3,10 +3,12 @@ package com.example.newwestminsternavigator;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Vibrator;
 
 import androidx.annotation.Nullable;
 
@@ -34,6 +36,7 @@ public class LocationService extends Service implements
     GoogleApiClient mGoogleApiClient;
     Location mCurrentLocation, lStart, lEnd;
     static double distance = 0;
+    double speedLimit = 50;
     double speed;
 
 
@@ -103,8 +106,8 @@ public class LocationService extends Service implements
         //Calling the method below updates the  live values of distance and speed to the TextViews.
         updateUI();
         //calculating the speed with getSpeed method it returns speed in m/s so we are converting it into kmph
-        speed = location.getSpeed() * 18 / 5;
-
+//        speed = location.getSpeed() * 18 / 5;
+        speed = location.getSpeed() * 90 / 5;
     }
 
     @Override
@@ -127,7 +130,14 @@ public class LocationService extends Service implements
         if (MapsActivity.p == 0) {
             distance = distance + (lStart.distanceTo(lEnd) / 1000.00);
             MapsActivity.endTime = System.currentTimeMillis();
-            if (speed >= 0.0)
+            MapsActivity.speed.setTextColor(Color.BLACK);
+            if (speed >= speedLimit) {
+                MapsActivity.speed.setText("Current speed: " + new DecimalFormat("#.##").format(speed) + " km/hr");
+                MapsActivity.speed.setTextColor(Color.RED);
+                Vibrator vib = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+                vib.vibrate(1500);
+            }
+            else if (speed >= 0.0)
                 MapsActivity.speed.setText("Current speed: " + new DecimalFormat("#.##").format(speed) + " km/hr");
             else
                 MapsActivity.speed.setText(".......");
