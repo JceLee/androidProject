@@ -137,7 +137,7 @@ public class LocationService extends Service implements
                 Vibrator vib = (Vibrator)getSystemService(VIBRATOR_SERVICE);
                 vib.vibrate(1500);
             }
-            else if (speed >= 0.0)
+            else if (speed > 0.0)
                 MapsActivity.speed.setText("Current speed: " + new DecimalFormat("#.##").format(speed) + " km/hr");
             else
                 MapsActivity.speed.setText(".......");

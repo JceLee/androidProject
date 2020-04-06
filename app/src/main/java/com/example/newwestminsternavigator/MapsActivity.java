@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
@@ -27,6 +28,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.util.Log;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.newwestminsternavigator.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,6 +42,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,6 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageView image;
     static ProgressDialog locate;
     static int p = 0;
+    static List<speedSign> speedSigns;
 
 
     @Override
@@ -94,6 +104,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locate.setCancelable(false);
         locate.setMessage("Getting Location...");
         locate.show();
+
+        String jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "bezkoder.json");
+        Log.i("data", jsonFileString);
+
+        Gson gson = new Gson();
+        Type listUserType = new TypeToken<List<speedSign>>() { }.getType();
+
+        speedSigns = gson.fromJson(jsonFileString, listUserType);
+//        for (int i = 0; i < speedSigns.size(); i++) {
+//            Log.i("data", "> Item " + i + "\n" + speedSigns.get(i));
+//        }
     }
 
 
@@ -142,7 +163,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void addMarker2Map(Location location) {
 
-        String msg = String.format("Current Location: %4.3f Lat %4.3f Long.",
+        @SuppressLint("DefaultLocale") String msg = String.format("Current Location: %4.3f Lat %4.3f Long.",
                 location.getLatitude(),
                 location.getLongitude());
 
@@ -167,6 +188,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
                 Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                assert lastKnownLocation != null;
                 addMarker2Map(lastKnownLocation);
             }
         }
@@ -265,26 +287,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
-
-
-}
-
-class JsonLoader {
-
-    public static String loadJSONFromAsset(Context context) {
-        String json = null;
-        try {
-            InputStream is = context.getAssets().open("speedsigns.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
 }
