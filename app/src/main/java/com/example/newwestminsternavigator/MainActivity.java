@@ -10,6 +10,7 @@ import android.view.View;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,23 +23,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void startMap(View v) throws Exception {
-//        //try {
+    public void startMap(View v)  {
+//        try {
 //            JSONObject obj = new JSONObject(JsonLoader.loadJSONFromAsset(this));
-//            JSONArray m_jArry = obj.getJSONArray("features");
+//            JSONArray m_jArray = obj.getJSONArray("features");
 //            ArrayList<ArrayList<Double>> arrayList = new ArrayList<ArrayList<Double>>();
 //
-//            for (int i = 0; i < m_jArry.length(); i++) {
-//                JSONObject jo_inside = m_jArry.getJSONObject(i);
+//            for (int i = 0; i < m_jArray.length(); i++) {
+//                JSONObject jo_inside = m_jArray.getJSONObject(i);
 //                JSONObject geometry = jo_inside.getJSONObject("geometry");
 //                JSONArray coordinates = geometry.getJSONArray("coordinates");
 //                coordinates.getDouble(0);
 //                coordinates.getDouble(1);
+//                JSONObject properties = jo_inside.getJSONObject("properties");
+//                String speed = properties.getString("Speed");
+//                arrayList.add(speed); EDIT THIS AND ADD TO ARRAY
+//
 //                Log.d("ASL", Double.toString(coordinates.getDouble(0)));
 //            }
-////        } catch (JSONException e) {
-////            e.printStackTrace();
-////        }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+
         Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
         this.startActivity(intent);
 
